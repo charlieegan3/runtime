@@ -16,5 +16,5 @@ gem 'spring',        group: :development
 
 gem 'pry'
 gem 'descriptive_statistics'
-
+gem 'nokogiri'
 
