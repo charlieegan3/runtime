@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018161854) do
+ActiveRecord::Schema.define(version: 20141018202446) do
 
   create_table "runners", force: true do |t|
     t.integer  "age"
@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 20141018161854) do
     t.integer  "fitness"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "query_distance"
+    t.float    "query_distance"
   end
 
   create_table "runs", force: true do |t|
-    t.integer  "distance"
+    t.float    "distance"
     t.time     "racetime"
     t.integer  "runner_id"
     t.datetime "created_at"
