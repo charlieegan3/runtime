@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  distance: 1
+  racetime: 2014-10-18 16:48:38
+  user_id: 
+
+two:
+  distance: 1
+  racetime: 2014-10-18 16:48:38
+  user_id: 
