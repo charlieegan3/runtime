@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018155250) do
+ActiveRecord::Schema.define(version: 20141018161854) do
 
   create_table "runners", force: true do |t|
     t.integer  "age"
@@ -25,11 +25,14 @@ ActiveRecord::Schema.define(version: 20141018155250) do
   create_table "runs", force: true do |t|
     t.integer  "distance"
     t.time     "racetime"
-    t.integer  "user_id"
+    t.integer  "runner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "seconds"
+    t.integer  "minutes"
+    t.integer  "hours"
   end
 
-  add_index "runs", ["user_id"], name: "index_runs_on_user_id"
+  add_index "runs", ["runner_id"], name: "index_runs_on_runner_id"
 
 end
