@@ -29,6 +29,6 @@ class Runner < ActiveRecord::Base
     estimate = scored_runs.map { |pair| pair.inject(:*) }.inject(:+) / multiplier
     certainty = scored_runs.map { |pair| pair[0] }.standard_deviation
 
-    [estimate, certainty]
+    [estimate, certainty, scored_runs.size]
   end
 end
