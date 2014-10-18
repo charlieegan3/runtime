@@ -2,8 +2,24 @@
   
   <div id="inner_form">
 
-  <%= label_tag(:goal, "Target distance:") %>
-  <%= text_field_tag 'goal', nil, class: "form-control" %>
+  <%= label_tag(:query_distance, "Target distance:") %>
+  <%= text_field_tag 'query_distance', nil, class: "form-control" %>
+
+  <%= label_tag(:age, "Age:") %>
+  <%= text_field_tag 'age', nil, class: "form-control" %>
+
+  <%= label_tag(:gender, "Gender:") %></br>
+  <%= radio_button_tag 'gender', 'Male' %> <%= label :fitness, 'Male' %></br>
+  <%= radio_button_tag 'gender', 'Female' %> <%= label :fitness, 'Female' %>
+
+  </br>
+  <%= label_tag(:fitness, "Fitness level:") %></br>
+  <%= radio_button_tag 'fitness', 0 %> <%= label :fitness, 'Poor' %></br>
+  <%= radio_button_tag 'fitness', 1 %> <%= label :fitness, 'Below average' %></br>
+  <%= radio_button_tag 'fitness', 2 %> <%= label :fitness, 'Average' %></br>
+  <%= radio_button_tag 'fitness', 3 %> <%= label :fitness, 'Ok' %></br>
+  <%= radio_button_tag 'fitness', 4 %> <%= label :fitness, 'Yeah' %></br>
+  <%= radio_button_tag 'fitness', 5 %> <%= label :fitness, 'Usain Bolt' %>
 
   <h3> Run 1: </h3>
 
