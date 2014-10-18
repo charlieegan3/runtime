@@ -1,7 +1,40 @@
-<%= form_for @query, url: {action: "create"}, html: {class: "form-group"} do |f| %>
-  <%= f.text_field :distance %>
-  <%= f.text_field :hours %>
-  <%= f.text_field :minutes %>
-  <%= f.text_field :seconds %>
-  <%= f.submit "Create" %>
+<%= form_tag("/submit", method: "post ") do %>
+  
+  <div id="inner_form">
+
+  <%= label_tag(:goal, "Target distance:") %>
+  <%= text_field_tag 'goal', nil, class: "form-control" %>
+
+  <h3> Run 1: </h3>
+
+  <%= label_tag(:distance, "Race distance:") %>
+  <%= text_field_tag 'distance', nil, class: "form-control", name: "run[0][distance]" %>
+
+  <%= label_tag(:hours, "Hours:") %>
+  <%= text_field_tag 'hours', nil, class: "form-control", name: "run[0][hours]" %>
+  
+  <%= label_tag(:minutes, "Minutes:") %>
+  <%= text_field_tag 'minutes', nil, class: "form-control", name: "run[0][minutes]" %>
+  
+  <%= label_tag(:seconds, "Seconds:") %>
+  <%= text_field_tag 'seconds', nil, class: "form-control", name: "run[0][seconds]" %>
+
+  <h3> Run 2: </h3>
+
+  <%= label_tag(:distance, "Race distance:") %>
+  <%= text_field_tag 'distance', nil, class: "form-control", name: "run[1][distance]" %>
+
+  <%= label_tag(:hours, "Hours:") %>
+  <%= text_field_tag 'hours', nil, class: "form-control", name: "run[1][hours]" %>
+  
+  <%= label_tag(:minutes, "Minutes:") %>
+  <%= text_field_tag 'minutes', nil, class: "form-control", name: "run[1][minutes]" %>
+  
+  <%= label_tag(:seconds, "Seconds:") %>
+  <%= text_field_tag 'seconds', nil, class: "form-control", name: "run[1][seconds]" %>
+
+  </div>
+
+  </br>
+  <%= submit_tag "Submit", class: "form-control btn-success" %>
 <% end %>

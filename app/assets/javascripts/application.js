@@ -14,3 +14,25 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  var click_count = 2;
+  var distance_field = '<label for="distance">Race distance:</label>  <input class="form-control" id="distance" name="run['+click_count+'][distance]" type="text">';
+  var hours_field = '<label for="hours">Hours:</label>  <input class="form-control" id="hours" name="run['+click_count+'][hours]" type="text">';
+  var minutes_field = '<label for="minutes">Minutes:</label>  <input class="form-control" id="minutes" name="run['+click_count+'][minutes]" type="text">';
+  var seconds_field = '<label for="seconds">Seconds:</label>  <input class="form-control" id="seconds" name="run['+click_count+'][seconds]" type="text">';
+
+  $("#addrun").click(function(){
+    distance_field = '<label for="distance">Race distance:</label>  <input class="form-control" id="distance" name="run['+click_count+'][distance]" type="text">';
+    hours_field = '<label for="hours">Hours:</label>  <input class="form-control" id="hours" name="run['+click_count+'][hours]" type="text">';
+    minutes_field = '<label for="minutes">Minutes:</label>  <input class="form-control" id="minutes" name="run['+click_count+'][minutes]" type="text">';
+    seconds_field = '<label for="seconds">Seconds:</label>  <input class="form-control" id="seconds" name="run['+click_count+'][seconds]" type="text">';
+
+    $("#inner_form").append('<h3>Run '+(click_count+1)+': </h3>');
+    $("#inner_form").append(distance_field);
+    $("#inner_form").append(hours_field);
+    $("#inner_form").append(minutes_field);
+    $("#inner_form").append(seconds_field);
+    click_count++;
+  })
+});

@@ -4,4 +4,7 @@ class QueryController < ApplicationController
     @query = Run.new
   end
 
+  def submit
+  end
+
 end
