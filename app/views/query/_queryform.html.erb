@@ -1,0 +1,7 @@
+<%= form_for @query, url: {action: "create"}, html: {class: "form-group"} do |f| %>
+  <%= f.text_field :distance %>
+  <%= f.text_field :hours %>
+  <%= f.text_field :minutes %>
+  <%= f.text_field :seconds %>
+  <%= f.submit "Create" %>
+<% end %>
