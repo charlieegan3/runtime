@@ -17,6 +17,8 @@ group :development do
   gem 'spring'
   gem 'seed_dumper'
   gem 'pry'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'nokogiri'
 end
 
