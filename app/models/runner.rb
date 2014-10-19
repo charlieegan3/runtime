@@ -29,13 +29,29 @@ class Runner < ActiveRecord::Base
     times = []
     query_runner.runs.each do |run|
       ratio = Ratio.where(distance1: distance_range(run.distance), distance2: distance_range(query_runner.query_distance)).first
-      times << [ratio.multiplier * run.time_in_seconds, ratio.certainty] if ratio
+      times << [ratio.multiplier * run.time_in_seconds, ratio.certainty] if ratio.nil? == false
+      if times.last.to_s == '[Infinity, nil]'
+        binding.pry
+      end
     end
+    times.reject! {|x| x[1].nil?}
     scores[:ratio] = [
       times.map{ |x| x[0] }.inject(:+) / times.size,
       times.map{ |x| x[1] }.inject(:+) / times.size,
       times.size
     ]
+
+    best_difference = 10000
+    best_run = nil
+
+    query_runner.runs.each do |run|
+      if (run.distance - query_runner.query_distance).abs < best_difference
+        best_difference = run.distance - query_runner.query_distance
+        best_run = run
+      end
+    end
+
+    scores[:riegel] = [best_run.time_in_seconds * (query_runner.query_distance.to_f/best_run.distance) * 1.06, best_run]
 
     scores
   end
