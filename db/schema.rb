@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018202446) do
+ActiveRecord::Schema.define(version: 20141019130919) do
+
+  create_table "distances", force: true do |t|
+    t.string   "identifier"
+    t.float    "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ratios", force: true do |t|
+    t.float    "distance1"
+    t.float    "distance2"
+    t.float    "multiplier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "certainty"
+  end
 
   create_table "runners", force: true do |t|
     t.integer  "age"

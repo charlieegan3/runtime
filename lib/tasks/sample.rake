@@ -7,28 +7,11 @@ fitnesses = (1..5).to_a
 distances = [3, 5, 10, 21]
 
 def distance(distance)
-  if distance == 'parkrun'
-    5
-  elsif distance == 'HM'
-    21.097
-  elsif distance == '5000'
-    5
-  elsif distance == '3000'
-    3
-  elsif distance == 'Mar'
-    42.1949
-  elsif distance == '10K'
-    10
-  elsif distance == '1500'
-    1.5
-  elsif distance == '10M'
-    16.09
-  elsif distance == '5M'
-    8.05
-  elsif distance == '4M'
-    6.44
-  else
+  distance = Distance.find_by_identifier(distance)
+  if distance.nil?
     0
+  else
+    distance.value
   end
 end
 
@@ -39,44 +22,65 @@ def time(time)
   time.split(':').map { |x| x.to_i }
 end
 
-task :generate_samples do
+task :scrape do
   Runner.delete_all
   Run.delete_all
 
-  100.times do
-    runner = Runner.new(age: ages.sample,
-      gender: genders.sample,
-      fitness: fitnesses.sample,
-      query_distance: distances.sample)
-    runner.save!
+  [
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=228323',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=522763',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=42875',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=299903',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=140527',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=111486',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=185612',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=299904',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=352083',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=508711',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=41986',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=257261',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=615616',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=80587',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=83819',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=6231',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=49920',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=63349',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=38262',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=240070',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=307433',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=307431',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=525172',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=273426',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=307430',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=120786',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=307428',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=273427',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=11039',
+    'http://www.thepowerof10.info/athletes/profile.aspx?athleteid=602135'
+  ].each do |url|
+    doc = Nokogiri::HTML(open(url))
 
-    3.times do
-      distance = distances.sample
-      Run.new(runner: runner,
-        distance: distance,
-        seconds: 0,
-        minutes: rand(3.0..10.0) * distance,
-        hours: 0).save
+    gender = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[3].css('td').last.text.downcase
+    age = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[4].css('td').last.text.match(/[0-9]+/).to_s.to_i
+
+    if (age > 5) and (['male', 'female', 'other'].include? gender)
+      runner = Runner.create(age: age, gender: gender)
+
+      events = doc.css('.alternatingrowspanel').first.css('tr').to_a
+      events.delete_at(0)
+      events.each do |event|
+        time = time(event.css('td')[1].text)
+        distance = distance(event.css('td').first.text)
+        if (distance != 0) && (time.compact == time)
+          Run.create(distance: distance, runner: runner, seconds: time[2], minutes: time[1], hours: time[0])
+        else
+          puts event.css('td').first.text if event.css('td').first.text != "Event"
+        end
+      end
+
+      sleep 0.2
+    else
+      next
     end
   end
-end
-
-task :scrape, [:url]  => :environment  do |t, args|
-  doc = Nokogiri::HTML(open(args.url))
-
-  gender = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[3].css('td').last.text
-  age = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[4].css('td').last.text
-
-  runner = Runner.create(age: age.match(/[0-9]+/).to_s, gender: gender.downcase)
-
-  events = doc.css('.alternatingrowspanel').first.css('tr').to_a
-  events.delete_at(0)
-  events.each do |event|
-    time = time(event.css('td')[1].text)
-
-    Run.create(distance: distance(event.css('td').first.text), runner: runner, seconds: time[2], minutes: time[1], hours: time[0])
-  end
-
-  puts runner
-  puts runner.runs
 end
