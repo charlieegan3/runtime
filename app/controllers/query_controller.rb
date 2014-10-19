@@ -9,7 +9,7 @@ class QueryController < ApplicationController
 
   def submit
 
-    if params[:units] == "m"
+    if params[:units] == "k"
       runner = Runner.new(age: params[:age], gender: params[:gender].downcase, fitness: params[:fitness], query_distance: params[:query_distance])
       runner.save!
       params['run'].each do |run|
