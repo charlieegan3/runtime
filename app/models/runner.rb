@@ -49,7 +49,7 @@ class Runner < ActiveRecord::Base
         basic_similarity = runner.basic_similarity(query_runner)
         if basic_similarity > 50 #is this cutting out too much? it was at 90
           related_run = runner.runs.where(distance: distance_range(query_runner.query_distance)).first
-          scored_runs << [related_run.time_in_seconds, (basic_similarity * runner.run_similarity(query_runner)).round]
+          scored_runs << [related_run.time_in_seconds, (basic_similarity * runner.run_similarity(query_runner)).round + 1]
         end
       end
       scored_runs
