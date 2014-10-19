@@ -2,8 +2,30 @@
 
 <h3><span class="label label-info"><%= params['run'].length %> runs.</span></h3>
 
-<div class="well well-sm">
-<%= @estimate %>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Estimate from similar runs</h3>
+    <div class="well well-sm">
+      <h4>Time</h4>
+      <p><%= @estimate[:related][0] %> seconds.</p>
+      <h4>Standard deviation <a href="http://en.wikipedia.org/wiki/Standard_deviation">(?)</a></h4>
+      <p><%= @estimate[:related][1].round(3) %>%.</p>
+      <h4>Based on</h4>
+      <p><%= @estimate[:related][2] %> other people's runs.</p>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Estimate from average trends</h3>
+    <div class="well well-sm">
+      <h4>Time</h4>
+      <p><%= @estimate[:ratio][0] %> seconds.</p>
+      <h4>Standard deviation <a href="http://en.wikipedia.org/wiki/Standard_deviation">(?)</a></h4>
+      <p><%= @estimate[:ratio][1].round(3) %>%.</p>
+      <h4>Based on</h4>
+      <p><%= @estimate[:ratio][2] %> other people's runs.</p>
+    </div>
+  </div>
 </div>
 
 <%= link_to("Back", "/", class: "btn btn-sm btn-success") %>
