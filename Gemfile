@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'descriptive_statistics'
+gem 'slim'
 
 group :development do
   gem 'sqlite3'
