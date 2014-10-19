@@ -7,35 +7,9 @@ fitnesses = (1..5).to_a
 distances = [3, 5, 10, 21]
 
 def distance(distance)
-  distances = {
-    'Mile' => 1.61,
-    'parkrun' => 5,
-    'QM' => 8.43,
-    'HM' => 21.097,
-    'Mar' => 42.1949,
-    '300' => 0.3,
-    '400' => 0.4,
-    '600' => 0.6,
-    '800' => 0.8,
-    '1000' => 1,
-    '1200' => 1.2,
-    '1500' => 1.5,
-    '2000' => 2,
-    '3000' => 3,
-    '5000' => 5,
-    '10000' =>10,
-    '3K' => 3,
-    '5K' => 5,
-    '10K' => 10,
-    '1M' => 1.61,
-    '2M' => 3.22,
-    '4M' => 6.44,
-    '5M' => 8.05,
-    '7M' => 11.27,
-    '10M' => 16.09,
-    '20M' => 32.19,
-  }
-  distances[distance].nil? ? 0 : distances[distance]
+  distance = Distance.find_by_identifier(distance)
+  distance = 0  if distance.nil?
+  distance
 end
 
 def time(time)
