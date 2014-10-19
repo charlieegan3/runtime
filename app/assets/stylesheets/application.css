@@ -17,3 +17,13 @@
 .radiowhatever{
   display:none;
 }
+
+.time {
+  font-size: 12em;
+  text-align: center;
+  color: Green;
+}
+
+.colon {
+  color: DarkGreen;
+}

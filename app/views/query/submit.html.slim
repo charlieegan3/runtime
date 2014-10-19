@@ -1,0 +1,41 @@
+h3
+  |You provided us with information for&nbsp;
+  span.label.label-info
+    = params['run'].length
+  | &nbsp;of your runs.
+h3
+  |Using this informaiton we calculated estimates for your goal of&nbsp;
+  span.label.label-info
+    = @runner.query_distance.round(2)
+    | &nbsp; km
+
+.well
+  h1.time
+    = formatted_time_from_seconds(@estimate[:related][0]).html_safe
+  p
+    | Based directly on&nbsp;
+    span.label.label-info
+      = @estimate[:related][2]
+    | &nbsp;similar runners recorded times.
+  p
+    | Standard Deviation:&nbsp;
+    span.label.label-info
+      = formatted_time_from_seconds(@estimate[:related][1], false).html_safe
+    | &nbsp;+/-&nbsp;
+    span.label.label-info
+      = ((@estimate[:related][1] / @estimate[:related][0])*100).round(1)
+      | %
+.well
+  h1.time
+    = formatted_time_from_seconds(@estimate[:ratio][0]).html_safe
+  p
+    | Estimated from average trends. We were able to use&nbsp;
+    span.label.label-info
+      = @estimate[:ratio][2]
+    | &nbsp;runs and lookup the aggregated ratios. These ratios are periodically generated using all our data.
+
+= link_to("Back", "/", class: "btn btn-sm btn-success")
+br
+br
+
+
