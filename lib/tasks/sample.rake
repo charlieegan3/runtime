@@ -8,8 +8,11 @@ distances = [3, 5, 10, 21]
 
 def distance(distance)
   distance = Distance.find_by_identifier(distance)
-  distance = 0  if distance.nil?
-  distance
+  if distance.nil?
+    0
+  else
+    distance.value
+  end
 end
 
 def time(time)
@@ -57,25 +60,25 @@ task :scrape do
   ].each do |url|
     doc = Nokogiri::HTML(open(url))
 
-    gender = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[3].css('td').last.text
-    age = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[4].css('td').last.text
+    gender = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[3].css('td').last.text.downcase
+    age = doc.css('#ctl00_cphBody_pnlAthleteDetails tr')[4].css('td').last.text.match(/[0-9]+/).to_s.to_i
 
-    if age and gender
-      runner = Runner.create(age: age.match(/[0-9]+/).to_s, gender: gender.downcase)
+    if (age > 5) and (['male', 'female', 'other'].include? gender)
+      runner = Runner.create(age: age, gender: gender)
 
       events = doc.css('.alternatingrowspanel').first.css('tr').to_a
       events.delete_at(0)
       events.each do |event|
         time = time(event.css('td')[1].text)
         distance = distance(event.css('td').first.text)
-        if distance != 0
+        if (distance != 0) && (time.compact == time)
           Run.create(distance: distance, runner: runner, seconds: time[2], minutes: time[1], hours: time[0])
         else
-          puts event.css('td').first.text
+          puts event.css('td').first.text if event.css('td').first.text != "Event"
         end
       end
 
-      sleep 0.5
+      sleep 0.2
     else
       next
     end
