@@ -4,6 +4,9 @@ class QueryController < ApplicationController
     @query = Run.new
   end
 
+  def about
+  end
+
   def submit
     runner = Runner.new(age: params[:age], gender: params[:gender].downcase, fitness: params[:fitness], query_distance: params[:query_distance])
     runner.save!

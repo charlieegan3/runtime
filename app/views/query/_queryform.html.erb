@@ -6,20 +6,32 @@
   <%= text_field_tag 'query_distance', nil, class: "form-control" %>
 
   <%= label_tag(:age, "Age:") %>
-  <%= text_field_tag 'age', nil, class: "form-control" %>
+  <%= text_field_tag 'age', nil, class: "form-control" %></br>
 
   <%= label_tag(:gender, "Gender:") %></br>
+  <div class="btn-group">
+   <button type="button" id="gender-btn-male" class="btn btn-info">Male</button>
+   <button type="button" id="gender-btn-female" class="btn btn-default">Female</button>
+  </div></br>
+
+  <div style="display:none">
   <%= radio_button_tag 'gender', 'Male', checked: "checked" %> <%= label :fitness, 'Male' %></br>
   <%= radio_button_tag 'gender', 'Female' %> <%= label :fitness, 'Female' %>
-
+  </div>
   </br>
+
   <%= label_tag(:fitness, "Fitness level:") %></br>
-  <%= radio_button_tag 'fitness', 0 %> <%= label :fitness, 'Poor' %></br>
-  <%= radio_button_tag 'fitness', 1 %> <%= label :fitness, 'Below average' %></br>
-  <%= radio_button_tag 'fitness', 2 %> <%= label :fitness, 'Average' %></br>
-  <%= radio_button_tag 'fitness', 3, checked: "checked" %> <%= label :fitness, 'Ok' %></br>
-  <%= radio_button_tag 'fitness', 4 %> <%= label :fitness, 'Yeah' %></br>
-  <%= radio_button_tag 'fitness', 5 %> <%= label :fitness, 'Usain Bolt' %>
+  <div class="btn-group">
+   <button type="button" id="fitness-btn-0" class="btn btn-info">Low</button>
+   <button type="button" id="fitness-btn-1" class="btn btn-default">Medium</button>
+   <button type="button" id="fitness-btn-2" class="btn btn-default">High</button>
+  </div></br>
+
+  <div style="display:none">
+  <%= radio_button_tag 'fitness', 0 %></br>
+  <%= radio_button_tag 'fitness', 1 %></br>
+  <%= radio_button_tag 'fitness', 2 %></br>
+  </div>
 
   <h3> Run 1: </h3>
 

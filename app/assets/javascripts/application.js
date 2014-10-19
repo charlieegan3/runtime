@@ -58,4 +58,43 @@ $(document).ready(function(){
     e.preventDefault();
     if(checkForm() == true) { $("#yolo").submit(); }
   });
+
+  // Form buttons.
+  $("#gender-btn-male").click(function(){
+    $("#gender-btn-male").attr('class', 'btn btn-info')
+    $("#gender-btn-female").attr('class', 'btn btn-default')
+    $("#gender_Male").prop("checked", true)
+    $("#gender_Female").prop("checked", false)
+  });
+  $("#gender-btn-female").click(function(){
+    $("#gender-btn-female").attr('class', 'btn btn-info')
+    $("#gender-btn-male").attr('class', 'btn btn-default')
+    $("#gender_Female").prop("checked", true)
+    $("#gender_Male").prop("checked", false)
+  });
+  $("#fitness-btn-0").click(function(){
+    $("#fitness-btn-0").attr('class', 'btn btn-info')
+    $("#fitness-btn-1").attr('class', 'btn btn-default')
+    $("#fitness-btn-2").attr('class', 'btn btn-default')
+    $("#fitness_0").prop("checked", true);
+    $("#fitness_1").prop("checked", false)
+    $("#fitness_2").prop("checked", false)
+  });
+  $("#fitness-btn-1").click(function(){
+    $("#fitness-btn-1").attr('class', 'btn btn-info')
+    $("#fitness-btn-0").attr('class', 'btn btn-default')
+    $("#fitness-btn-2").attr('class', 'btn btn-default')
+    $("#fitness_1").prop("checked", true);
+    $("#fitness_0").prop("checked", false)
+    $("#fitness_2").prop("checked", false)
+  });
+  $("#fitness-btn-2").click(function(){
+    $("#fitness-btn-2").attr('class', 'btn btn-info')
+    $("#fitness-btn-0").attr('class', 'btn btn-default')
+    $("#fitness-btn-1").attr('class', 'btn btn-default')
+    $("#fitness_2").prop("checked", true);
+    $("#fitness_0").prop("checked", false)
+    $("#fitness_1").prop("checked", false)
+  });
+
 });
