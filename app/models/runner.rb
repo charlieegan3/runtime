@@ -30,9 +30,6 @@ class Runner < ActiveRecord::Base
     query_runner.runs.each do |run|
       ratio = Ratio.where(distance1: distance_range(run.distance), distance2: distance_range(query_runner.query_distance)).first
       times << [ratio.multiplier * run.time_in_seconds, ratio.certainty] if ratio.nil? == false
-      if times.last.to_s == '[Infinity, nil]'
-        binding.pry
-      end
     end
     times.reject! {|x| x[1].nil?}
     scores[:ratio] = [
@@ -46,7 +43,7 @@ class Runner < ActiveRecord::Base
 
     query_runner.runs.each do |run|
       if (run.distance - query_runner.query_distance).abs < best_difference
-        best_difference = run.distance - query_runner.query_distance
+        best_difference = (run.distance - query_runner.query_distance).abs
         best_run = run
       end
     end

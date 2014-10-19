@@ -19,9 +19,13 @@
 }
 
 .time {
-  font-size: 12em;
+  font-size: 6em;
   text-align: center;
   color: Green;
+}
+
+.super {
+  font-size: 14em;
 }
 
 .colon {

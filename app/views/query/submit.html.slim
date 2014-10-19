@@ -9,30 +9,51 @@ h3
     = @runner.query_distance.round(2)
     | &nbsp; km
 
+.row
+  .col-md-4
+    .well
+      h1.time
+        = formatted_time_from_seconds(@estimate[:related][0]).html_safe
+      p
+        | Based directly on&nbsp;
+        span.label.label-info
+          = @estimate[:related][2]
+        | &nbsp;similar runners recorded times.
+      p
+        | Standard Deviation:&nbsp;
+        span.label.label-info
+          = formatted_time_from_seconds(@estimate[:related][1], false).html_safe
+        | &nbsp;+/-&nbsp;
+        span.label.label-info
+          = ((@estimate[:related][1] / @estimate[:related][0])*100).round(1)
+          | %
+  .col-md-4
+    .well
+      h1.time
+        = formatted_time_from_seconds(@estimate[:ratio][0]).html_safe
+      p
+        | Estimated from average trends. We were able to use&nbsp;
+        span.label.label-info
+          = @estimate[:ratio][2]
+        | &nbsp;runs and lookup the aggregated ratios.
+  .col-md-4
+    .well
+      h1.time
+        = formatted_time_from_seconds(@estimate[:riegel][0]).html_safe
+      p
+        | Estimated using&nbsp;
+        strong
+          | Riegel's formula&nbsp;
+        | and your&nbsp;
+        span.label.label-info
+          = @estimate[:riegel][1].distance
+          | &nbsp;km
+        | &nbsp;run as the input.
 .well
-  h1.time
-    = formatted_time_from_seconds(@estimate[:related][0]).html_safe
+  h1.time.super
+    = formatted_time_from_seconds((@estimate[:riegel][0] + @estimate[:ratio][0] + @estimate[:related][0])/3).html_safe
   p
-    | Based directly on&nbsp;
-    span.label.label-info
-      = @estimate[:related][2]
-    | &nbsp;similar runners recorded times.
-  p
-    | Standard Deviation:&nbsp;
-    span.label.label-info
-      = formatted_time_from_seconds(@estimate[:related][1], false).html_safe
-    | &nbsp;+/-&nbsp;
-    span.label.label-info
-      = ((@estimate[:related][1] / @estimate[:related][0])*100).round(1)
-      | %
-.well
-  h1.time
-    = formatted_time_from_seconds(@estimate[:ratio][0]).html_safe
-  p
-    | Estimated from average trends. We were able to use&nbsp;
-    span.label.label-info
-      = @estimate[:ratio][2]
-    | &nbsp;runs and lookup the aggregated ratios. These ratios are periodically generated using all our data.
+    | Is the plain old mean from the three above factors above.
 
 = link_to("Back", "/", class: "btn btn-sm btn-success")
 br
