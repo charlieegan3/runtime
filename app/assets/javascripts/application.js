@@ -15,6 +15,21 @@
 //= require turbolinks
 //= require_tree .
 
+function checkForm()
+  {
+    var valid = true;
+    $('#yolo input[type="text"]').each(function(){
+        // If it's empty, or not a number.
+        if (this.value == "" || this.value == null || isNaN(this.value)) // regular expression for numbers only.
+        {
+          $(this).css("border", "1px solid red");
+          $(this).attr("placeholder", "Please enter a number");
+          valid = false;
+        }
+    });
+    return valid;
+  }
+
 $(document).ready(function(){
   var click_count = 2;
   var distance_field = '<label for="distance">Race distance:</label>  <input class="form-control" id="distance" name="run['+click_count+'][distance]" type="text">';
@@ -22,6 +37,8 @@ $(document).ready(function(){
   var minutes_field = '<label for="minutes">Minutes:</label>  <input class="form-control" id="minutes" name="run['+click_count+'][minutes]" type="text">';
   var seconds_field = '<label for="seconds">Seconds:</label>  <input class="form-control" id="seconds" name="run['+click_count+'][seconds]" type="text">';
 
+
+  // Adding additional runs to the form.
   $("#addrun").click(function(){
     distance_field = '<label for="distance">Race distance:</label>  <input class="form-control" id="distance" name="run['+click_count+'][distance]" type="text">';
     hours_field = '<label for="hours">Hours:</label>  <input class="form-control" id="hours" name="run['+click_count+'][hours]" type="text">';
@@ -34,5 +51,11 @@ $(document).ready(function(){
     $("#inner_form").append(minutes_field);
     $("#inner_form").append(seconds_field);
     click_count++;
-  })
+  });
+
+  // Form validation.
+  $("#querybtn").click(function(e){
+    e.preventDefault();
+    if(checkForm() == true) { $("#yolo").submit(); }
+  });
 });
