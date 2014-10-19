@@ -4,13 +4,12 @@ task :ratios do
   all_runners = Runner.all
 
   Distance.all.pluck(:value).permutation(2).each do |d1, d2|
-    puts "#{d1}:#{d2}"
-
     runners = all_runners.select {|r|
       (r.runs.pluck(:distance) & [d1,d2]).size == 2
     }
 
     if runners.size > 0
+      puts "#{d1}:#{d2}"
       multipliers = []
       runners.each do |runner|
         t1 = runner.runs.find_by_distance(d1).time_in_seconds
