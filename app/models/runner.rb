@@ -29,7 +29,6 @@ class Runner < ActiveRecord::Base
     times = []
     query_runner.runs.each do |run|
       ratio = Ratio.where(distance1: distance_range(run.distance), distance2: distance_range(query_runner.query_distance)).first
-      binding.pry
       times << [ratio.multiplier * run.time_in_seconds, ratio.certainty] if ratio
     end
     scores[:ratio] = [
