@@ -50,7 +50,7 @@ task :scrape do
         events.each do |event|
           time = time(event.css('td')[1].text)
           distance = distance(event.css('td').first.text)
-          if (distance != 0) && (time.compact == time)
+          if (distance != 0) && (time.compact == time) && (time.inject(:+) > 0)
             Run.create(distance: distance, runner: runner, seconds: time[2], minutes: time[1], hours: time[0])
           else
             # puts event.css('td').first.text if event.css('td').first.text != "Event"

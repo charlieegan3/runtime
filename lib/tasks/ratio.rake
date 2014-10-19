@@ -15,7 +15,9 @@ task :ratios do
         t1 = runner.runs.find_by_distance(d1).time_in_seconds
         t2 = runner.runs.find_by_distance(d2).time_in_seconds
 
-        multipliers << t2.to_f / t1
+        if (t1 != 0) and (t2 != 0)
+          multipliers << t2.to_f / t1
+        end
       end
 
       ratio = Ratio.where(distance1: d1, distance2: d2).first || Ratio.new(distance1: d1, distance2: d2)
