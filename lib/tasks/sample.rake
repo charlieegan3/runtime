@@ -45,28 +45,6 @@ def time(time)
   time.split(':').map { |x| x.to_i }
 end
 
-task :generate_samples do
-  Runner.delete_all
-  Run.delete_all
-
-  100.times do
-    runner = Runner.new(age: ages.sample,
-      gender: genders.sample,
-      fitness: fitnesses.sample,
-      query_distance: distances.sample)
-    runner.save!
-
-    3.times do
-      distance = distances.sample
-      Run.new(runner: runner,
-        distance: distance,
-        seconds: 0,
-        minutes: rand(3.0..10.0) * distance,
-        hours: 0).save
-    end
-  end
-end
-
 task :scrape do
   Runner.delete_all
   Run.delete_all
