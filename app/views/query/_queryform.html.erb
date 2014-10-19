@@ -33,6 +33,17 @@
   <%= radio_button_tag 'fitness', 2 %></br>
   </div>
 
+  <%= label_tag(:units, "Units:") %></br>
+  <div class="btn-group">
+   <button type="button" id="units-btn-k" class="btn btn-info">Kilometres</button>
+   <button type="button" id="units-btn-m" class="btn btn-default">Miles</button>
+  </div></br>
+
+  <div style="display:none">
+  <%= radio_button_tag 'units', 'k', checked: "checked" %></br>
+  <%= radio_button_tag 'units', 'm' %></br>
+  </div>
+
   <h4><span class="label label-warning">Please enter at least 2 runs, cheers!</span></h4>
 
   <h3> Run 1: </h3>

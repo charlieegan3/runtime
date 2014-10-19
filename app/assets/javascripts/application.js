@@ -96,5 +96,17 @@ $(document).ready(function(){
     $("#fitness_0").prop("checked", false)
     $("#fitness_1").prop("checked", false)
   });
+  $("#units-btn-k").click(function(){
+    $("#units-btn-k").attr('class', 'btn btn-info')
+    $("#units-btn-m").attr('class', 'btn btn-default')
+    $("#units_k").prop("checked", true)
+    $("#units_m").prop("checked", false)
+  });
+  $("#units-btn-m").click(function(){
+    $("#units-btn-m").attr('class', 'btn btn-info')
+    $("#units-btn-k").attr('class', 'btn btn-default')
+    $("#units_m").prop("checked", true)
+    $("#units_k").prop("checked", false)
+  });
 
 });
